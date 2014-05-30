@@ -16,7 +16,7 @@ public class Memo {
 	 * @param score
 	 * 
 	 */
-	public static void add (Tableau t, int score, int depth) {		
+	public static void add (TableauPositionV3 t, int score, int depth) {		
 		if (depth < DEPTH_MAX) {
 			// Infos facultatives
 			if (depth <= 2) {
@@ -30,10 +30,10 @@ public class Memo {
 			}
 
 			// Stockage
-			if(!memoireProfondeur.put(t.getVersionCompacte().a, t.getVersionCompacte().b, score, 100-depth))
-				memoireRecente.put(t.getVersionCompacte().a, t.getVersionCompacte().b, score);
+			if(!memoireProfondeur.put(t.tableau.a, t.tableau.b, score, 100-depth))
+				memoireRecente.put(t.tableau.a, t.tableau.b, score);
 		} else {
-			memoireRecente.put(t.getVersionCompacte().a, t.getVersionCompacte().b, score);
+			memoireRecente.put(t.tableau.a, t.tableau.b, score);
 		}
 	}
 
@@ -43,10 +43,10 @@ public class Memo {
 	 * @return : le score associé s'il est stocké, -1001 sinon
 	 * 
 	 */	
-	public static int get (Tableau t) {
+	public static int get (TableauPositionV3 t) {
 		leaveVisited ++;
 
-		PairLong p = t.getVersionCompacte();
+		PairLong p = t.tableau;
 
 		Integer retour = memoireProfondeur.get(p.a, p.b);
 		if (retour != -1001) {

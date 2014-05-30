@@ -33,7 +33,7 @@ public class Negamax {
 		Negamax.largeur = largeur;
 	}
 
-	public static int negamax (Tableau t, int depth) {
+	public static int negamax (TableauPositionV3 t, int depth) {
 		int resultat, buff;
 
 		resultat = Memo.get(t);
@@ -53,14 +53,15 @@ public class Negamax {
 
 					// Si ce coup est gagnant
 					if (t.coupGagnant(i) == 1000) {
-						buff = 1000;
+						resultat = 1000;
 					}
 					else {
 						buff = negamax (t, depth+1);
+						if (buff > resultat)
+							resultat = buff;
 					}
 
-					if (buff > resultat)
-						resultat = buff;
+					
 
 					t.retirerJeton(i);
 				}

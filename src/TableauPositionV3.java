@@ -11,7 +11,7 @@ public class TableauPositionV3 implements Tableau {
 	public final int largeur;
 	public final int hauteur;
 	public boolean blancsJouent;
-	private PairLong tableau;
+	public PairLong tableau;
 
 	//variables ajoutées pour plus d'efficacité 
 
