@@ -31,14 +31,14 @@ public class PairLong {
 	}
 
 	public int hashCode () {
-		return (int) Long.hashCode(a*sym(a) - b*sym(b));
+		return (int) Long.valueOf(a*sym(a) - b*sym(b)).hashCode();
 	}
 
 	public static int hashCode (long a, long b) {
 		long inutiles = getInutiles(a,b);
 		a = a | inutiles;
 		b = b | inutiles;
-		return (int) Long.hashCode(a*sym(a) - b*sym(b));
+		return (int) Long.valueOf(a*sym(a) - b*sym(b)).hashCode();
 	}
 
 	/** Intervertit une position (symétrie centrale)
