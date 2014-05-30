@@ -20,14 +20,16 @@ public class PairLong {
 	public static boolean same(long a, long b, long c, long d) {
 		if ((a == c && b == d) || (sym(a) == c && sym(b) == d))
 			return true;
-
+		
+		
 		long inutiles = getInutiles(a,b);
 		a = a | inutiles;
 		b = b | inutiles;
 		inutiles = getInutiles(c,d);
 		c = c | inutiles;
 		d = d | inutiles;
-		return (a == c && b == d) || (sym(a) == c && sym(b) == d);
+		
+		return (a == c && b == d)|| (sym(a) == c && sym(b) == d);
 	}
 
 	public int hashCode () {

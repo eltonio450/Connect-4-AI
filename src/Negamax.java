@@ -14,6 +14,7 @@ public class Negamax {
 	 */	
 	static int [] colonnes;
 	static int largeur;
+	static int [] ordre = new int[] {0,4,2,5,1,3,6};
 
 	public static void iniMax(int largeur) {
 		colonnes = new int [largeur];
@@ -31,10 +32,12 @@ public class Negamax {
 			colonnes[largeur-1] = 0;
 		}
 		Negamax.largeur = largeur;
+		
+		
 	}
 
 	public static int negamax (TableauPositionV3 t, int depth) {
-		int resultat, buff;
+		int resultat, buff, j = 0;
 
 		resultat = Memo.get(t);
 		
@@ -46,24 +49,32 @@ public class Negamax {
 		if (t.blancsJouent()) {
 			// maximisation du score
 			resultat = -1001;
-			for (int i=0; i<largeur; i++) {
-				if (t.colonneLibre(i)) {
-					t.ajouterJeton(i);
-
-
-					// Si ce coup est gagnant
-					if (t.coupGagnant(i) == 1000) {
-						resultat = 1000;
-					}
-					else {
-						buff = negamax (t, depth+1);
-						if (buff > resultat)
-							resultat = buff;
-					}
-
+			
+			for (int i=0; i<7 && resultat < 1000; i++) {
+				if(ordre[i] >= largeur)
+					i++;
+				else
+				{
 					
-
-					t.retirerJeton(i);
+					if (t.colonneLibre(ordre[i])) 
+					{
+						t.ajouterJeton(ordre[i]);
+	
+	
+						// Si ce coup est gagnant
+						if (t.coupGagnant(ordre[i]) == 1000) {
+							resultat = 1000;
+						}
+						else {
+							buff = negamax (t, depth+1);
+							if (buff > resultat)
+								resultat = buff;
+						}
+	
+						
+	
+						t.retirerJeton(ordre[i]);
+					}
 				}
 			}
 		}
@@ -72,22 +83,27 @@ public class Negamax {
 		else {
 			// minimisation du score
 			resultat = 1001;
-			for (int i=0; i<largeur; i++) {
-				if (t.colonneLibre(i)) {
-					t.ajouterJeton(i);
-
-					// Si ce coup est gagnant
-					if (t.coupGagnant(i) == -1000) {
-						buff = -1000;	
+			for (int i=0; i<7 && resultat > -1000; i++) {
+				if(ordre[i]>=largeur)
+					i++;
+				else
+				{
+					if (t.colonneLibre(ordre[i])) {
+						t.ajouterJeton(ordre[i]);
+	
+						// Si ce coup est gagnant
+						if (t.coupGagnant(ordre[i]) == -1000) {
+							buff = -1000;	
+						}
+						else {
+							buff = negamax (t, depth+1);
+						}
+	
+						if (buff < resultat)
+							resultat = buff;
+	
+						t.retirerJeton(ordre[i]);
 					}
-					else {
-						buff = negamax (t, depth+1);
-					}
-
-					if (buff < resultat)
-						resultat = buff;
-
-					t.retirerJeton(i);
 				}
 			}
 		}

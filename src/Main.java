@@ -4,7 +4,7 @@ enum Jeton { BLANC, NOIR, VIDE };
 public class Main {
 
 	public static void main(String[] args) {	
-		TableauPositionV3 depart = new TableauPositionV3(6,4);
+		TableauPositionV3 depart = new TableauPositionV3(5,5);
 		PairLong.iniSym(depart.hauteur(),depart.largeur());
 		
 		long t = System.currentTimeMillis();
